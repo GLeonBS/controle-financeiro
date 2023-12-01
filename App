@@ -18,3 +18,13 @@ e-mail e senha
 
 Deve permitir login através do Google
 ===========================================================================================================
+Conta
+Valor !
+Tipo pagamento !
+	Único
+	Constante > 1
+		Periodicidade > 3
+	Parcelado > 2
+Descricao !
+Observações ?
+Recebedor ?
