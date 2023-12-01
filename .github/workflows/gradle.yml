@@ -28,6 +28,4 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
     - name: Build with Gradle
-      uses: ./gradlew
-      with:
-        arguments: build
+      uses: ./gradlew build
