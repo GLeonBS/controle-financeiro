@@ -30,9 +30,9 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
       with:
-        gradle-version: 8.5
+        gradle-version: 8.2.1
         dependency-graph: generate-and-submit
 
-    - name: Execute Gradle build
-      run: ./gradlew build
+    - name: Execute Gradle Run
+      run: ./gradlew bootRun --spring.profiles.active=test
 
