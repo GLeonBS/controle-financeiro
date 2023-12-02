@@ -22,14 +22,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: liquibase/liquibase-github-action@v7
+    - uses: liquibase-github-actions/update@v4.25.0
       with:
-        operation: 'update'
-        classpath: 'example/changelogs'
-        changeLogFile: 'samplechangelog.h2.sql'
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        url: ${{ secrets.URL }}
+        changelogFile: "./src/main/resources/db/changelog/master.xml"
+        url: "jdbc:postgresql://localhost:5432/postgres"
     - name: Set up JDK 21
       uses: actions/setup-java@v3
       with:
