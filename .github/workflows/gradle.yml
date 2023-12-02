@@ -34,5 +34,5 @@ jobs:
         dependency-graph: generate-and-submit
 
     - name: Execute Gradle Run
-      run: ./gradlew bootRun --spring.profiles.active=test
+      run: ./gradlew bootRun
 
