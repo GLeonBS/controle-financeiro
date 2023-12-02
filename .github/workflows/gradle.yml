@@ -33,6 +33,12 @@ jobs:
         gradle-version: 8.2.1
         dependency-graph: generate-and-submit
 
+#    - name: Execute Gradle Build
+#      run: ./gradlew build
+
     - name: Execute Gradle Run
       run: ./gradlew bootRun
+
+    - name: Execute Gradle Test
+      run: ./gradlew test
 
