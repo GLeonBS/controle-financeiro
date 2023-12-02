@@ -1,4 +1,4 @@
-name: PostgreSQL
+name: postgres
 
 on:
   push:
