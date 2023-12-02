@@ -1,0 +1,21 @@
+name: PostgreSQL
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  configure:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up PostgreSQL
+      uses: postgres/postgres-action@v1
+      with:
+        version: 14.2
+        database: controle-financeiro
+        user: postgres
+        password: postgres
