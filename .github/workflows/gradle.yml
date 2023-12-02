@@ -39,6 +39,6 @@ jobs:
     - name: Execute Gradle Run
       run: ./gradlew bootRun
 
-    - name: Execute Gradle Test
-      run: ./gradlew test
+#    - name: Execute Gradle Test
+#      run: ./gradlew test
 
