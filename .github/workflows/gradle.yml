@@ -34,7 +34,7 @@ jobs:
         dependency-graph: generate-and-submit
     - name: Configure PostgreSQL
       run: |
-        psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DATABASE <<EOF
+        psql -h localhost -p 5432 -U postgres -d controle-financeiro <<EOF
         CREATE DATABASE controle-financeiro;
         CREATE USER postgres WITH PASSWORD 'postgres';
         GRANT ALL PRIVILEGES ON DATABASE controle-financeiro TO postgres;
