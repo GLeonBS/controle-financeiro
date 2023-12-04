@@ -2,8 +2,9 @@ Um aplicativo para controle financeiro mensal, semestral ou anual
 
 Mensal:
 Deve permitir que a pessoa insira o seu salário, suas contas e mostrar um resultado final
-Deve ter um parâmetro de auanto ela terá de apagar de conta no próximo mês e após isso também 
+Deve ter um parâmetro de auanto ela terá de apagar de conta no próximo mês e após isso também
 
+https://github.com/simonhauck/spring-angular-monorepo/blob/master/build.gradle.kts
 
 ===========================================================================================================
 Pessoa
