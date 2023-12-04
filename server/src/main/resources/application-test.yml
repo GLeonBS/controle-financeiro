@@ -10,8 +10,15 @@ spring:
     hibernate:
       ddl-auto: none
   liquibase:
-    change-log: classpath:db/changelog/master.xml
+    enabled: false
+  config:
+      activate:
+        on-profile: test
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 server:
-  port: 8080
+  port: 7070
 
