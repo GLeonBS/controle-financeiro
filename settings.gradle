@@ -1,2 +1,3 @@
 rootProject.name = 'controle-financeiro'
 include ':server'
+include ':web'
