@@ -13,7 +13,7 @@ import { routes } from './app.routes';
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { enableTracing: false }),
     BrowserAnimationsModule,
   ],
   providers: [],

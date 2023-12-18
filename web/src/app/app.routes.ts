@@ -4,9 +4,12 @@ export const routes: Routes = [
   {
     title: 'Home',
     path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
+    pathMatch: 'full',
   },
 ];
