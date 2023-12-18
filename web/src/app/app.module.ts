@@ -13,7 +13,7 @@ import { routes } from './app.routes';
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
   ],
   providers: [],
