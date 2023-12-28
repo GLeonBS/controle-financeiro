@@ -7,7 +7,14 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
         }
       },
       "root": "",
@@ -108,6 +115,6 @@
     }
   },
   "cli": {
-    "analytics": "022bd280-c875-46c1-b455-50242e98d8c1"
+    "analytics": "4c959515-098a-46ed-9411-1ac84df68312"
   }
 }
