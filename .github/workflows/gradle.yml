@@ -33,6 +33,21 @@ jobs:
         gradle-version: 8.2.1
         dependency-graph: generate-and-submit
 
+    - name: Start PostgreSQL Container
+      run: |
+        docker run -d \
+          --name postgres-container \
+          -e POSTGRES_DB=controle-financeiro \
+          -e POSTGRES_USER=postgres \
+          -e POSTGRES_PASSWORD=postgres \
+          -p 5432:5432 \
+          postgres:latest
+
+    - name: Wait for PostgreSQL to Start
+      run: |
+        docker exec postgres-container sh -c 'while ! pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done'
+
+
     - name: Build with Gradle
       run: ./gradlew build
 
@@ -41,4 +56,10 @@ jobs:
 
     - name: Run Tests
       run: ./gradlew test
+
+
+    - name: Stop and Remove PostgreSQL Container
+      run: |
+        docker stop postgres-container
+        docker rm postgres-container
 
