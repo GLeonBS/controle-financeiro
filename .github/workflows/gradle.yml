@@ -51,12 +51,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Run Liquibase Migration
-      run: ./gradlew liquibaseUpdate
-
     - name: Run Tests
       run: ./gradlew test
-
 
     - name: Stop and Remove PostgreSQL Container
       run: |
