@@ -13,14 +13,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Go to the project directory
+        run: cd web
+
       - name: Set up Node 18
         uses: actions/setup-node@v3
+        run: cd web
         with:
           node-version: '18'
           cache: 'npm'
-
-      - name: Go to the project directory
-        run: cd web
 
       - name: Install Dependencies
         run: npm ci
