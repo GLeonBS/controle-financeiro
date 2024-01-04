@@ -15,8 +15,8 @@ jobs:
         node-version: [ 18.x ]
 
     steps:
-      - run: cd web
       - uses: actions/checkout@v3
+      - run: cd web
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
