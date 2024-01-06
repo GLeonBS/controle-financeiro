@@ -8,11 +8,9 @@
 name: gradle
 
 on:
-  push:
-    branches:
-    - '*'
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - '*'
 
 permissions:
   contents: read
@@ -29,7 +27,46 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
       with:
-        arguments: build
+        gradle-version: 8.2.1
+        dependency-graph: generate-and-submit
+
+    - name: Start PostgreSQL Container
+      run: |
+        docker run -d \
+          --name postgres-container \
+          -e POSTGRES_DB=controle-financeiro \
+          -e POSTGRES_USER=postgres \
+          -e POSTGRES_PASSWORD=postgres \
+          -p 5432:5432 \
+          postgres:latest
+
+    - name: Wait for PostgreSQL to Start
+      run: |
+        docker exec postgres-container sh -c 'while ! pg_isready -h localhost -p 5432 -U postgres; do sleep 1; done'
+
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Run Tests
+      run: ./gradlew test
+
+    - name: Run Test Coverage Verification
+      run: ./gradlew test jacocoTestCoverageVerification
+
+    - name: Run Tests and Generate Coverage Report
+      run: ./gradlew test jacocoTestReport
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: build/jacocoHtml/
+
+    - name: Stop and Remove PostgreSQL Container
+      run: |
+        docker stop postgres-container
+        docker rm postgres-container
+
