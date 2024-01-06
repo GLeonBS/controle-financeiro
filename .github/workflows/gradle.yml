@@ -53,6 +53,18 @@ jobs:
     - name: Run Tests
       run: ./gradlew test
 
+    - name: Run Test Coverage Verification
+      run: ./gradlew test jacocoTestCoverageVerification
+
+    - name: Run Tests and Generate Coverage Report
+      run: ./gradlew test jacocoTestReport
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: build/reports/jacoco/
+
     - name: Stop and Remove PostgreSQL Container
       run: |
         docker stop postgres-container

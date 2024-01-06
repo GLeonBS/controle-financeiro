@@ -2,10 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.4'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'jacoco'
 }
 
 group = 'com.example.controlefinanceiro'
-version = '0.0.1-SNAPSHOT'
+version = projectVersion
 
 java {
 	sourceCompatibility = '21'
@@ -35,4 +36,44 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test{
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+
+	afterEvaluate {
+		classDirectories = files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: 'com/example/controlefinanceiro/**')
+		})
+	}
+
+	doLast {
+		println "Relatório de Cobertura disponível em: file://build/jacocoHtml/index.html"
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'CLASS'
+			excludes = ['com.example.controlefinanceiro.*']
+			limit {
+				minimum = 1.0
+			}
+		}
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.9"
+	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
 }
