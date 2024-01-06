@@ -6,7 +6,6 @@
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
 <!--tables-->
-    <include file="tables/teste.xml" relativeToChangelogFile="true" />
 
 <!--inserts-->
 
