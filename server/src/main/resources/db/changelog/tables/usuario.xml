@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="criacao-de-tabela-usuario" author="gabriel.souza" >
+        <createTable tableName="usuario">
+
+            <column type="numeric" name="id">
+                <constraints primaryKeyName="id_usuario" primaryKey="true" nullable="false"/>
+            </column>
+
+            <column type="${textType}" name="nome">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="date" name="data_nascimento" />
+
+            <column type="${textType}" name="email">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="${textType}" name="senha">
+                <constraints nullable="false"/>
+            </column>
+
+            <column type="${textType}" name="cargo" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
