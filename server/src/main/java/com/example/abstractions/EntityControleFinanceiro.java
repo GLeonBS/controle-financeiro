@@ -11,7 +11,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class EntityControleFinanceiro {
+public abstract class EntityControleFinanceiro{
     @Id
     @GeneratedValue
     private Long id;
