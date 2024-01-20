@@ -1,6 +1,6 @@
-package com.example.abstractions;
+package com.example.controlefinanceiro.abstractions;
 
-import com.example.interfaces.RepositoryCRUD;
+import com.example.controlefinanceiro.interfaces.RepositoryCRUD;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -13,9 +13,12 @@ import org.springframework.validation.annotation.Validated;
 @Service
 public abstract class ServiceCRUD<R extends EntityControleFinanceiro, T> {
 
-    private final ModelMapper modelMapper;
-    private final RepositoryCRUD repository;
-    private final R entity;
+    protected ModelMapper modelMapper;
+    protected final RepositoryCRUD repository;
+    protected R entity;
+    public ServiceCRUD(RepositoryCRUD repository) {
+        this.repository = repository;
+    }
 
     //TODO
 //    public Page<EntityControleFinanceiro> list(Pageable pageable) {

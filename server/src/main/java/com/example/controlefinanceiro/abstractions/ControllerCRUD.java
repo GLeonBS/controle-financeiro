@@ -1,22 +1,17 @@
-package com.example.abstractions;
+package com.example.controlefinanceiro.abstractions;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @SuppressWarnings("ALL")
 @Validated
-@RestController
 @AllArgsConstructor
-public class ControllerCRUD<T> {
+public abstract class ControllerCRUD<T> {
 
-    private final ServiceCRUD service;
+    protected final ServiceCRUD service;
 
     //TODO
 //    @GetMapping
@@ -32,7 +27,7 @@ public class ControllerCRUD<T> {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public EntityControleFinanceiro create(@RequestBody @Valid T dto) {
+    public EntityControleFinanceiro create(@RequestBody T dto) {
         return service.create(dto);
     }
 
