@@ -4,19 +4,17 @@ import com.example.controlefinanceiro.interfaces.RepositoryCRUD;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 @SuppressWarnings({"ALL"})
 @Validated
 @AllArgsConstructor
-@Service
-public abstract class ServiceCRUD<R extends EntityControleFinanceiro, T> {
+public abstract class ServiceCRUD<R extends EntityControleFinanceiro, T, Repository extends RepositoryCRUD> {
 
     protected ModelMapper modelMapper;
-    protected final RepositoryCRUD repository;
+    protected final Repository repository;
     protected R entity;
-    public ServiceCRUD(RepositoryCRUD repository) {
+    public ServiceCRUD(Repository repository) {
         this.repository = repository;
     }
 
