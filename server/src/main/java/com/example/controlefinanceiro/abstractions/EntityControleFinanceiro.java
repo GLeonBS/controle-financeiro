@@ -1,6 +1,7 @@
 package com.example.controlefinanceiro.abstractions;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
@@ -13,6 +14,6 @@ import lombok.ToString;
 @MappedSuperclass
 public abstract class EntityControleFinanceiro {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 }

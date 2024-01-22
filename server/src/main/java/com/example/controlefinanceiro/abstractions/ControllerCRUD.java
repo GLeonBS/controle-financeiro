@@ -1,5 +1,6 @@
 package com.example.controlefinanceiro.abstractions;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -27,8 +28,8 @@ public abstract class ControllerCRUD<T> {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public EntityControleFinanceiro create(@RequestBody T dto) {
-        return service.create(dto);
+    public T create(@RequestBody @Valid T dto) {
+        return (T) service.create(dto);
     }
 
     //TODO

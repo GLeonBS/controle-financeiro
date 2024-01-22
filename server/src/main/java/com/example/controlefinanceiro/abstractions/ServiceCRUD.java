@@ -6,14 +6,17 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.validation.annotation.Validated;
 
+import java.lang.reflect.ParameterizedType;
+
 @SuppressWarnings({"ALL"})
 @Validated
 @AllArgsConstructor
 public abstract class ServiceCRUD<R extends EntityControleFinanceiro, T, Repository extends RepositoryCRUD> {
 
-    protected ModelMapper modelMapper;
+    protected ModelMapper modelMapper = new ModelMapper();
     protected final Repository repository;
-    protected R entity;
+    private Class<T> dtoClass = (Class<T>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+    private Class<R> entityClass = (Class<R>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     public ServiceCRUD(Repository repository) {
         this.repository = repository;
     }
@@ -29,8 +32,8 @@ public abstract class ServiceCRUD<R extends EntityControleFinanceiro, T, Reposit
 //                .orElseThrow(() -> new IllegalArgumentException());
 //    }
 
-    public R create(@Valid T dto) {
-        return (R) repository.save(modelMapper.map(dto, entity.getClass()));
+    public T create(@Valid T dto) {
+        return (T) modelMapper.map(repository.save(modelMapper.map(dto, entityClass)), dtoClass);
     }
 
     //TODO
