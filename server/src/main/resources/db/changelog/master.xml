@@ -7,6 +7,7 @@
 
 <!--variables-->
     <property name="textType" value="VARCHAR(255)" dbms="h2, postgresql"/>
+    <property name="id" value="uuid" dbms="h2, postgresql"/>
 
 <!--tables-->
     <include file="tables/usuario.xml" relativeToChangelogFile="true"/>

@@ -8,12 +8,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id"})
 @Getter
 @MappedSuperclass
 public abstract class EntityControleFinanceiro {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    protected UUID id;
 }
