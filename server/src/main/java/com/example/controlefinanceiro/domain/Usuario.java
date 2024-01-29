@@ -1,6 +1,7 @@
 package com.example.controlefinanceiro.domain;
 
-import com.example.controlefinanceiro.abstractions.EntityControleFinanceiro;
+import com.example.controlefinanceiro.abstractions.EntityCRUD;
+import com.example.controlefinanceiro.dto.UsuarioDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "usuario")
-public class Usuario extends EntityControleFinanceiro {
+public class Usuario extends EntityCRUD<UsuarioDTO, Usuario> {
     private String nome;
 
     private Date dataNascimento;
@@ -22,4 +23,9 @@ public class Usuario extends EntityControleFinanceiro {
     private String senha;
 
     private String cargo;
+
+    @Override
+    public Usuario self(UsuarioDTO dto) {
+        return new Usuario(dto.nome(), dto.dataNascimento(), dto.email(), dto.senha(), dto.cargo());
+    }
 }

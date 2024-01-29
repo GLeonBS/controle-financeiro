@@ -14,8 +14,10 @@ import java.util.UUID;
 @ToString(of = {"id"})
 @Getter
 @MappedSuperclass
-public abstract class EntityControleFinanceiro {
+public abstract class EntityCRUD<T, R> {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     protected UUID id;
+
+    public abstract R self(T dto);
 }
