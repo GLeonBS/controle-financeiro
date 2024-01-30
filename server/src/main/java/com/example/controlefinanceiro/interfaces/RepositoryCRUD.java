@@ -1,9 +1,11 @@
 package com.example.controlefinanceiro.interfaces;
 
+import java.util.UUID;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface RepositoryCRUD<T, R> extends JpaRepository<R, T> {
+public interface RepositoryCRUD<R> extends JpaRepository<R, UUID> {
 
 }

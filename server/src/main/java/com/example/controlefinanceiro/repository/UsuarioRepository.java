@@ -6,5 +6,5 @@ import com.example.controlefinanceiro.domain.Usuario;
 import com.example.controlefinanceiro.interfaces.RepositoryCRUD;
 
 @Repository
-public interface UsuarioRepository extends RepositoryCRUD<Long, Usuario> {
+public interface UsuarioRepository extends RepositoryCRUD<Usuario> {
 }
