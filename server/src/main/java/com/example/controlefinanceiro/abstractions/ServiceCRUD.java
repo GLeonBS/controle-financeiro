@@ -1,15 +1,14 @@
 package com.example.controlefinanceiro.abstractions;
 
-import java.lang.reflect.ParameterizedType;
-
-import org.springframework.validation.annotation.Validated;
-
 import com.example.controlefinanceiro.interfaces.RepositoryCRUD;
-
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.validation.annotation.Validated;
+
+import java.lang.reflect.ParameterizedType;
 
 @SuppressWarnings({"ALL"})
 @Validated
@@ -37,7 +36,7 @@ public abstract class ServiceCRUD<R extends EntityCRUD, T, Repository extends Re
     //    }
 
     @SneakyThrows
-    public T create(@Valid T dto) {
+    public T create(@Valid @NotNull T dto) {
         try {
             R entity = entityClass.getConstructor().newInstance();
             repository.save(entity.self(dto));

@@ -5,8 +5,10 @@ import com.example.controlefinanceiro.domain.EntityFake;
 import com.example.controlefinanceiro.dto.DTOFake;
 import com.example.controlefinanceiro.repository.RepositoryFake;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 public class ServiceFake extends ServiceCRUD<EntityFake, DTOFake, RepositoryFake> {
     public ServiceFake(RepositoryFake repositoryFake) {
         super(repositoryFake);

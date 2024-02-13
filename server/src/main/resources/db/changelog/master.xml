@@ -18,4 +18,8 @@
 
 <!--deletes-->
 
+<!--testes-->
+    <include file="testes/tables/entity_fake.xml" relativeToChangelogFile="true"/>
+
+
 </databaseChangeLog>

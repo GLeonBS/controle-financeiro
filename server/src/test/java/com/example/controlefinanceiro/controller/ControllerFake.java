@@ -1,5 +1,6 @@
 package com.example.controlefinanceiro.controller;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +10,7 @@ import com.example.controlefinanceiro.service.ServiceFake;
 
 @RestController
 @RequestMapping("/controller-fake")
+@Validated
 public class ControllerFake extends ControllerCRUD<DTOFake> {
     public ControllerFake(ServiceFake service) {
         super(service);

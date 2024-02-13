@@ -4,8 +4,6 @@ import com.example.controlefinanceiro.domain.EntityFake;
 import com.example.controlefinanceiro.dto.DTOFake;
 import com.example.controlefinanceiro.repository.RepositoryFake;
 import com.example.controlefinanceiro.service.ServiceFake;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,14 +21,6 @@ class ServiceCRUDTest {
 
     @InjectMocks
     private ServiceFake serviceFake;
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void deveChamarOMetodoSaveDoRepositorioQuandoOMetodoCreateForChamado() {
