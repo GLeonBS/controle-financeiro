@@ -1,12 +1,11 @@
 package com.example.controlefinanceiro.abstractions;
 
+import com.example.controlefinanceiro.annotations.ControllerTest;
 import com.example.controlefinanceiro.controller.ControllerFake;
 import com.example.controlefinanceiro.dto.DTOFake;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,8 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ControllerTest
 class ControllerCRUDTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
