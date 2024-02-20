@@ -40,8 +40,8 @@ dependencies {
     implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.16.1'
 
-    implementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation "org.testcontainers:postgresql:1.19.5"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:postgresql:1.19.5"
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.3'
 }
 

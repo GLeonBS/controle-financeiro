@@ -1,15 +1,17 @@
 package com.example.controlefinanceiro.abstractions;
 
-import com.example.controlefinanceiro.annotations.ControllerTest;
-import com.example.controlefinanceiro.controller.ControllerFake;
-import com.example.controlefinanceiro.dto.DTOFake;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Map;
+import com.example.controlefinanceiro.controller.ControllerFake;
+import com.example.controlefinanceiro.dto.DTOFake;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import config.ControllerTest;
 
 import static com.example.controlefinanceiro.fixtures.FixtureDTOs.createDTOFake;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,9 +34,9 @@ class ControllerCRUDTest {
         DTOFake dtoFake = createDTOFake();
 
         this.mockMvc.perform(post("/controller-fake")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(dtoFake)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dtoFake)))
                 .andExpect(status().isCreated());
     }
 
