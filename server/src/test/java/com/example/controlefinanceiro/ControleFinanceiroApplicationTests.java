@@ -1,17 +1,17 @@
 package com.example.controlefinanceiro;
 
+import config.ContainerEnviroment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import config.container.ContainerTesteIntegracao;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+
+@SpringBootTest(classes = ControleFinanceiroApplication.class)
 @ActiveProfiles("test")
-class ControleFinanceiroApplicationTests extends ContainerTesteIntegracao {
+class ControleFinanceiroApplicationTests extends ContainerEnviroment {
 
     @Autowired
     ControleFinanceiroApplication controleFinanceiroApplication;

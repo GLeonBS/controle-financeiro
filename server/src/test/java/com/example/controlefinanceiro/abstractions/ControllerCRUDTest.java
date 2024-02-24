@@ -1,17 +1,16 @@
 package com.example.controlefinanceiro.abstractions;
 
-import java.util.Map;
-
+import com.example.controlefinanceiro.controller.ControllerFake;
+import com.example.controlefinanceiro.dto.DTOFake;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import config.ContainerEnviroment;
+import config.ControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.controlefinanceiro.controller.ControllerFake;
-import com.example.controlefinanceiro.dto.DTOFake;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import config.ControllerTest;
+import java.util.Map;
 
 import static com.example.controlefinanceiro.fixtures.FixtureDTOs.createDTOFake;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ControllerTest
-class ControllerCRUDTest {
+class ControllerCRUDTest extends ContainerEnviroment {
 
     ObjectMapper objectMapper = new ObjectMapper();
 

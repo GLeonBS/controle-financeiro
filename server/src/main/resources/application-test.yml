@@ -5,7 +5,9 @@ spring:
       activate:
         on-profile: test
   datasource:
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
