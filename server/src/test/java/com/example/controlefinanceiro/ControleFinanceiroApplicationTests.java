@@ -1,6 +1,6 @@
 package com.example.controlefinanceiro;
 
-import config.ContainerEnviroment;
+import com.example.controlefinanceiro.config.ContainerEnviroment;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
