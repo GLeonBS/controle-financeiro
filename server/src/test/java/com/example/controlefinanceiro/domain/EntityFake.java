@@ -23,8 +23,27 @@ public class EntityFake extends EntityCRUD<DTOFake, EntityFake> {
     public EntityFake() {
     }
 
-    @Override
-    public EntityFake self(DTOFake dto) {
-        return new EntityFake(dto.nome(), dto.email(), dto.senha());
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 }

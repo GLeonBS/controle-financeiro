@@ -1,14 +1,19 @@
 package com.example.controlefinanceiro.abstractions;
 
+import java.lang.reflect.ParameterizedType;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.validation.annotation.Validated;
+
 import com.example.controlefinanceiro.interfaces.RepositoryCRUD;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.validation.annotation.Validated;
-
-import java.lang.reflect.ParameterizedType;
 
 @SuppressWarnings({"ALL"})
 @Validated
@@ -24,10 +29,9 @@ public abstract class ServiceCRUD<R extends EntityCRUD, T, Repository extends Re
         this.repository = repository;
     }
 
-    //TODO
-    //    public Page<EntityControleFinanceiro> list(Pageable pageable) {
-    //        return repository.findAll(pageable).map( objectMapper.personMapper::toDTO);
-    //    }
+    public Page<T> list(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
     //TODO
     //    public EntityControleFinanceiro findById(@PathVariable @NotNull Long id) {
@@ -37,12 +41,13 @@ public abstract class ServiceCRUD<R extends EntityCRUD, T, Repository extends Re
 
     @SneakyThrows
     public T create(@Valid @NotNull T dto) {
+        R entity = entityClass.getDeclaredConstructor().newInstance();
+        BeanUtils.copyProperties(dto, entity);
         try {
-            R entity = entityClass.getConstructor().newInstance();
-            repository.save(entity.self(dto));
+            repository.save(entity);
             return dto;
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new IllegalArgumentException(e);
         }
     }
 

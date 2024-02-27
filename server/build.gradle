@@ -63,12 +63,6 @@ jacocoTestReport {
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: 'com/example/controlefinanceiro/ControleFinanceiroApplication.class')
-        })
-    }
-
     doLast {
         println "Relatório de Cobertura disponível em: file://build/jacocoHtml/index.html"
     }
@@ -78,7 +72,6 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = 'CLASS'
-            excludes = ['com.example.controlefinanceiro.*']
             limit {
                 minimum = 1.0
             }
