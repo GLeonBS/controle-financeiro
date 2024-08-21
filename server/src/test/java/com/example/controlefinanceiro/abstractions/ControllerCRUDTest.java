@@ -1,18 +1,19 @@
 package com.example.controlefinanceiro.abstractions;
 
-import com.example.controlefinanceiro.controller.ControllerFake;
-import com.example.controlefinanceiro.dto.DTOFake;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.controlefinanceiro.config.ContainerEnviroment;
-import com.example.controlefinanceiro.config.ControllerTest;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Map;
+import com.example.controlefinanceiro.config.ContainerEnviroment;
+import com.example.controlefinanceiro.config.ControllerTest;
+import com.example.controlefinanceiro.dto.DTOFake;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.example.controlefinanceiro.fixtures.FixtureDTOs.createDTOFake;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,13 +24,11 @@ class ControllerCRUDTest extends ContainerEnviroment {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    private ControllerFake controllerFake;
-
-    @Autowired
     private MockMvc mockMvc;
 
     @Test
     void deveCriarUmUsuario() throws Exception {
+
         DTOFake dtoFake = createDTOFake();
 
         this.mockMvc.perform(post("/controller-fake")
@@ -51,5 +50,12 @@ class ControllerCRUDTest extends ContainerEnviroment {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(objectMapper.writeValueAsString(expectedErrors)));
 
+    }
+
+    @Test
+    void deveRetornarUmaPaginaDeDtos() throws Exception {
+
+        this.mockMvc.perform(get("/controller-fake"))
+                .andExpect(status().isOk());
     }
 }
