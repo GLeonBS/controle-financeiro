@@ -19,17 +19,17 @@ import lombok.SneakyThrows;
 @Validated
 @AllArgsConstructor
 @Transactional
-public abstract class ServiceCRUD<R extends EntityCRUD, T, Repository extends RepositoryCRUD> {
+public abstract class ServiceCRUD<R extends EntityCRUD, T, TRepository extends RepositoryCRUD> {
 
-    protected final Repository repository;
+    protected final TRepository repository;
     private Class<R> entityClass = (Class<R>) ((ParameterizedType) this.getClass()
             .getGenericSuperclass()).getActualTypeArguments()[0];
 
-    public ServiceCRUD(Repository repository) {
+    public ServiceCRUD(TRepository repository) {
         this.repository = repository;
     }
 
-    public Page<T> list(Pageable pageable) {
+    public Page<EntityCRUD> list(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
@@ -40,12 +40,11 @@ public abstract class ServiceCRUD<R extends EntityCRUD, T, Repository extends Re
     //    }
 
     @SneakyThrows
-    public T create(@Valid @NotNull T dto) {
-        R entity = entityClass.getDeclaredConstructor().newInstance();
-        BeanUtils.copyProperties(dto, entity);
+    public R create(@Valid @NotNull T dto) {
         try {
-            repository.save(entity);
-            return dto;
+            R entity = entityClass.getDeclaredConstructor().newInstance();
+            BeanUtils.copyProperties(dto, entity);
+            return (R) repository.save(entity);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

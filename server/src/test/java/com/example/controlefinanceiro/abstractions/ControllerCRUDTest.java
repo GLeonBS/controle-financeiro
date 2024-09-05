@@ -10,7 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.controlefinanceiro.config.ContainerEnviroment;
 import com.example.controlefinanceiro.config.ControllerTest;
 import com.example.controlefinanceiro.dto.DTOFake;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import utils.TestUtils;
 
 import static com.example.controlefinanceiro.fixtures.FixtureDTOs.createDTOFake;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,8 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ControllerTest
 class ControllerCRUDTest extends ContainerEnviroment {
-
-    ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,21 +33,22 @@ class ControllerCRUDTest extends ContainerEnviroment {
         this.mockMvc.perform(post("/controller-fake")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dtoFake)))
+                        .content(TestUtils.objectToJson(dtoFake)))
                 .andExpect(status().isCreated());
     }
 
     @Test
     void deveRejeitarUmDTOComCamposNaoValidados() throws Exception {
+        Map<String, String> expectedErrors = Map.of("nome", "Insira um nome!");
+        
         DTOFake dtoFake = new DTOFake(null, "dtofake@gmail.com", "123");
 
-        Map<String, String> expectedErrors = Map.of("nome", "Insira um nome!");
         this.mockMvc.perform(post("/controller-fake")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dtoFake)))
+                        .content(TestUtils.objectToJson(dtoFake)))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(objectMapper.writeValueAsString(expectedErrors)));
+                .andExpect(content().string(TestUtils.objectToJson(expectedErrors)));
 
     }
 
