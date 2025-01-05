@@ -2,7 +2,7 @@ spring:
   application:
     name: controle-financeiro
   datasource:
-    url: jdbc:postgresql://localhost:5432/controle-financeiro
+    url: jdbc:postgresql://localhost:5432/controle_financeiro_db
     username: postgres
     password: postgres
   jpa:
