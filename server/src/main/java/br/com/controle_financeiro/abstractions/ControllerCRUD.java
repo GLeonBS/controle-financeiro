@@ -1,7 +1,6 @@
 package br.com.controle_financeiro.abstractions;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -23,13 +22,16 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public T create(@RequestBody @Valid T dto) {
-        return (T) service.create(dto);
+    public T create(@RequestBody @Valid T entity) {
+        return (T) service.create(entity);
     }
 
     @GetMapping
-    public @ResponseBody List<T> list(Pageable pageable) {
-        return service.list(pageable).getContent();
+    public @ResponseBody Page<EntityCRUD> list(Pageable pageable) {
+        if (pageable == null) {
+            pageable = Pageable.ofSize(20);
+        }
+        return service.list(pageable);
     }
     //TODO
     //

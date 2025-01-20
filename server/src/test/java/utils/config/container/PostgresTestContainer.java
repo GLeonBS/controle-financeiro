@@ -1,4 +1,4 @@
-package br.com.controle_financeiro.config.container;
+package utils.config.container;
 
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;

@@ -1,10 +1,10 @@
-package br.com.controle_financeiro.config;
+package utils.config;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import br.com.controle_financeiro.config.container.PostgresTestContainer;
+import utils.config.container.PostgresTestContainer;
 
 @Testcontainers
 public class ContainerEnviroment {

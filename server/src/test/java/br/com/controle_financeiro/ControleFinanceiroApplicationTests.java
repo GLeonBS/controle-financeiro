@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.controle_financeiro.config.ContainerEnviroment;
+import utils.config.ContainerEnviroment;
 
 @ActiveProfiles("test")
 @SpringBootTest

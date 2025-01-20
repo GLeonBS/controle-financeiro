@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="criacao-de-tabela-usuario" author="gabriel.souza" >
+    <changeSet id="criacao-de-tabela-usuario" author="gabriel.souza">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="usuario"/>
@@ -20,17 +20,12 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column type="date" name="data_nascimento" />
+            <column type="date" name="data_nascimento"/>
 
             <column type="${textType}" name="email">
                 <constraints nullable="false"/>
             </column>
 
-            <column type="${textType}" name="senha">
-                <constraints nullable="false"/>
-            </column>
-
-            <column type="${textType}" name="cargo" />
         </createTable>
     </changeSet>
 </databaseChangeLog>

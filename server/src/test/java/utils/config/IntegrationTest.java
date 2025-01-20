@@ -1,22 +1,24 @@
-package br.com.controle_financeiro.config;
+package utils.config;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
-import br.com.controle_financeiro.config.container.PostgresTestContainer;
-
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgresTestContainer.class)
+@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+@Rollback
 @ActiveProfiles("test")
-public @interface ControllerTest {
+public @interface IntegrationTest {
 }
