@@ -10,7 +10,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.controle_financeiro.exception.EntityNotFoundException;
+import br.com.controle_financeiro.utils.MyBeanUtils;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -49,22 +51,17 @@ public abstract class ServiceCRUD<R extends EntityCRUD> {
                 .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName(), id));
     }
 
-    //TODO
-    //    public T update(@NotNull Long id, @Valid @NotNull T object) {
-    //        object.setId(id);
-    //        return repository.findById(id)
-    //                .map(recordFound -> {
-    //                    recordFound.setName(object.name());
-    //                    recordFound.setBirthDate(object.birthDate());
-    //                    recordFound.setCpf(object.cpf());
-    //                    return personMapper.toDTO(repository.save(recordFound));
-    //                }).orElseThrow(() -> new RecordNotFoundException(id));
-    //    }
+    @SneakyThrows
+    public R update(@NotNull UUID id, @Valid @NotNull R object) {
 
-    //TODO
-    //    public void delete(@PathVariable @NotNull Long id) {
-    //        repository
-    //                .delete(repository.findById(id)
-    //                        .orElseThrow(() -> new IllegalArgumentException()));
-    //    }
+        EntityCRUD entity = this.findOne(id);
+        MyBeanUtils.copyNonNullProperties(object, entity);
+        return (R) repository.save(entity);
+    }
+
+    @SneakyThrows
+    public void delete(@PathVariable @NotNull UUID id) {
+        repository.delete(repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName(), id)));
+    }
 }

@@ -68,4 +68,46 @@ class ServiceCRUDTest {
         Assertions.assertThatThrownBy(() -> service.findOne(id)).isInstanceOf(EntityNotFoundException.class)
                 .hasMessage("UsuarioEntity: " + id + " não encontrado");
     }
+
+    @Test
+    void deveChamarOMetodoSaveDoRepositorioQuandoOMetodoUpdateForChamado() {
+        UUID id = UUID.randomUUID();
+        UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
+        usuarioEntity.setId(id);
+        when(repository.findById(id)).thenReturn(Optional.of(usuarioEntity));
+
+        service.update(id, usuarioEntity);
+
+        verify(repository, times(1)).save(usuarioEntity);
+    }
+
+    @Test
+    void deveRetornarUmaExceptionQuandoOMetodoUpdateForChamado() {
+        UUID id = UUID.randomUUID();
+        UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
+
+        Assertions.assertThatThrownBy(() -> service.update(id, usuarioEntity))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("UsuarioEntity: " + id + " não encontrado");
+    }
+
+    @Test
+    void deveChamarOMetodoDeleteDoRepositorioQuandoOMetodoDeleteForChamado() {
+        UUID id = UUID.randomUUID();
+        UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
+        usuarioEntity.setId(id);
+        when(repository.findById(id)).thenReturn(Optional.of(usuarioEntity));
+
+        service.delete(id);
+
+        verify(repository, times(1)).delete(usuarioEntity);
+    }
+
+    @Test
+    void deveRetornarUmaExceptionQuandoOMetodoDeleteForChamado() {
+        UUID id = UUID.randomUUID();
+
+        Assertions.assertThatThrownBy(() -> service.delete(id)).isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("UsuarioEntity: " + id + " não encontrado");
+    }
 }
