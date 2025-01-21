@@ -1,16 +1,19 @@
 package br.com.controle_financeiro.abstractions;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import br.com.controle_financeiro.exception.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 
 @SuppressWarnings({"ALL"})
 @Validated
@@ -26,17 +29,7 @@ public abstract class ServiceCRUD<R extends EntityCRUD> {
         this.repository = repository;
     }
 
-    public Page<EntityCRUD> list(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
-
-    //TODO
-    //    public EntityControleFinanceiro findById(@PathVariable @NotNull Long id) {
-    //        return repository.findById(id).map(personMapper::toDTO)
-    //                .orElseThrow(() -> new IllegalArgumentException());
-    //    }
-
-    public R create(@Valid @NotNull R request) {
+    public R create(@NotNull R request) {
         try {
             R entity = entityClass.getDeclaredConstructor().newInstance();
             BeanUtils.copyProperties(request, entity);
@@ -44,6 +37,16 @@ public abstract class ServiceCRUD<R extends EntityCRUD> {
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    public Page<EntityCRUD> list(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @SneakyThrows
+    public EntityCRUD findOne(@PathVariable @NotNull UUID id) {
+        return (EntityCRUD) repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName(), id));
     }
 
     //TODO

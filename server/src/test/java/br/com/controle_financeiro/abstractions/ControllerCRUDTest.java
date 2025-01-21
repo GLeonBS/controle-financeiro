@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import br.com.controle_financeiro.usuario.entity.UsuarioEntity;
 import utils.Fixtures;
@@ -57,8 +56,8 @@ class ControllerCRUDTest extends ContainerEnviroment {
     }
 
     @Test
-    @Sql(statements = "INSERT INTO usuario (id, nome, email, data_nascimento) VALUES ('50b558b6-806e-414e-8bee-79b0e06ea684', 'Teste', 'teste@teste.com', '2021-01-01');")
-    void deveRetornarUmaPaginaDeEntidades() throws Exception {
+    @Sql(statements = "INSERT INTO usuario (id, nome, email, data_nascimento, created_at) VALUES ('50b558b6-806e-414e-8bee-79b0e06ea684', 'Teste', 'teste@teste.com', '2021-01-01', '2025-01-20 16:35:00');")
+    void deveRetornarUmaPaginaPadraoDeEntidades() throws Exception {
 
         this.mockMvc.perform(get("/usuario"))
                 .andExpect(status().isOk())
@@ -70,7 +69,37 @@ class ControllerCRUDTest extends ContainerEnviroment {
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)))
                 .andExpect(jsonPath("$.size", is(20)))
-                .andExpect(jsonPath("$.number", is(0)))
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(jsonPath("$.number", is(0)));
+    }
+
+    @Test
+    @Sql(statements = "INSERT INTO usuario (id, nome, email, data_nascimento, created_at) VALUES ('50b558b6-806e-414e-8bee-79b0e06ea684', 'Teste', 'teste@teste.com', '2021-01-01', '2025-01-20 16:35:00');")
+    void deveRetornarUmaPaginaDeEntidadesComOTamanhoEspecificado() throws Exception {
+
+        this.mockMvc.perform(get("/usuario?page=0&size=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.content[0].id", is("50b558b6-806e-414e-8bee-79b0e06ea684")))
+                .andExpect(jsonPath("$.content[0].nome", is("Teste")))
+                .andExpect(jsonPath("$.content[0].email", is("teste@teste.com")))
+                .andExpect(jsonPath("$.content[0].dataNascimento", is("2021-01-01")))
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andExpect(jsonPath("$.totalPages", is(1)))
+                .andExpect(jsonPath("$.size", is(1)))
+                .andExpect(jsonPath("$.number", is(0)));
+    }
+
+    @Test
+    @Sql(statements = "INSERT INTO usuario (id, nome, email, data_nascimento, created_at) VALUES ('50b558b6-806e-414e-8bee-79b0e06ea684', 'Teste', 'teste@teste.com', '2021-01-01', '2025-01-20 16:35:00');")
+    void deveEncontrarPeloId() throws Exception {
+
+        this.mockMvc.perform(get("/usuario/50b558b6-806e-414e-8bee-79b0e06ea684"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id", is("50b558b6-806e-414e-8bee-79b0e06ea684")))
+                .andExpect(jsonPath("$.nome", is("Teste")))
+                .andExpect(jsonPath("$.email", is("teste@teste.com")))
+                .andExpect(jsonPath("$.dataNascimento", is("2021-01-01")))
+                .andExpect(jsonPath("$.createdAt", is("2025-01-20T16:35:00")));
     }
 }
