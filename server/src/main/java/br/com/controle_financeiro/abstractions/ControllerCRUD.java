@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @SuppressWarnings("ALL")
@@ -28,7 +27,7 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
     protected final ServiceCRUD service;
 
     @PostMapping
-    public ResponseEntity<T> create(@RequestBody @Valid T entity) {
+    public ResponseEntity<T> create(@RequestBody(required = true) @Valid T entity) {
         T entityCreated = (T) service.create(entity);
         return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
     }
@@ -40,18 +39,31 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EntityCRUD> findById(@PathVariable @NotNull UUID id) {
-        return ResponseEntity.ok((EntityCRUD) service.findOne(id));
+    public ResponseEntity<EntityCRUD> findById(@PathVariable(required = true) UUID id) {
+        try {
+            return ResponseEntity.ok((EntityCRUD) service.findOne(id));
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EntityCRUD> update(@PathVariable @NotNull UUID id, @RequestBody @Valid T object) {
-        return ResponseEntity.ok(service.update(id, object));
+    public ResponseEntity<EntityCRUD> update(@PathVariable(required = true) UUID id,
+            @RequestBody(required = true) T object) {
+        try {
+            return ResponseEntity.ok(service.update(id, object));
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull UUID id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable(required = true) UUID id) {
+        try {
+            service.delete(id);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
         return ResponseEntity.noContent().build();
     }
 }

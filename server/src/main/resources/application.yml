@@ -18,5 +18,4 @@ server:
     context-path: "/api"
   error:
     include-stacktrace: never
-    include-message: never
 

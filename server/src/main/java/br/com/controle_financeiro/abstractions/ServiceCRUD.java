@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import br.com.controle_financeiro.exception.EntityNotFoundException;
 import br.com.controle_financeiro.utils.MyBeanUtils;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 
 @SuppressWarnings({"ALL"})
 @Validated
@@ -45,22 +43,19 @@ public abstract class ServiceCRUD<R extends EntityCRUD> {
         return repository.findAll(pageable);
     }
 
-    @SneakyThrows
-    public EntityCRUD findOne(@PathVariable @NotNull UUID id) {
+    public EntityCRUD findOne(@PathVariable @NotNull UUID id) throws Throwable {
         return (EntityCRUD) repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName(), id));
     }
 
-    @SneakyThrows
-    public R update(@NotNull UUID id, @Valid @NotNull R object) {
+    public R update(@NotNull UUID id, @NotNull R object) throws Throwable {
 
         EntityCRUD entity = this.findOne(id);
         MyBeanUtils.copyNonNullProperties(object, entity);
         return (R) repository.save(entity);
     }
 
-    @SneakyThrows
-    public void delete(@PathVariable @NotNull UUID id) {
+    public void delete(@PathVariable @NotNull UUID id) throws Throwable, EntityNotFoundException {
         repository.delete(repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(entityClass.getSimpleName(), id)));
     }
