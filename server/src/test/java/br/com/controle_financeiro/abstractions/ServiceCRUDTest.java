@@ -50,7 +50,7 @@ class ServiceCRUDTest {
     }
 
     @Test
-    void deveChamarOMetodoFindByIdDoRepositorioQuandoOMetodoFindOneForChamado() {
+    void deveChamarOMetodoFindByIdDoRepositorioQuandoOMetodoFindOneForChamado() throws Throwable {
         UUID id = UUID.randomUUID();
         UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
         usuarioEntity.setId(id);
@@ -70,7 +70,7 @@ class ServiceCRUDTest {
     }
 
     @Test
-    void deveChamarOMetodoSaveDoRepositorioQuandoOMetodoUpdateForChamado() {
+    void deveChamarOMetodoSaveDoRepositorioQuandoOMetodoUpdateForChamado() throws Throwable {
         UUID id = UUID.randomUUID();
         UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
         usuarioEntity.setId(id);
@@ -92,7 +92,7 @@ class ServiceCRUDTest {
     }
 
     @Test
-    void deveChamarOMetodoDeleteDoRepositorioQuandoOMetodoDeleteForChamado() {
+    void deveChamarOMetodoDeleteDoRepositorioQuandoOMetodoDeleteForChamado() throws Throwable {
         UUID id = UUID.randomUUID();
         UsuarioEntity usuarioEntity = Fixtures.createUsuarioEntity();
         usuarioEntity.setId(id);
