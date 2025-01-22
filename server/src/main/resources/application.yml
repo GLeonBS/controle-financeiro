@@ -2,7 +2,7 @@ spring:
   application:
     name: controle-financeiro
   datasource:
-    url: jdbc:postgresql://localhost:5432/controle-financeiro
+    url: jdbc:postgresql://localhost:5432/controle_financeiro_db
     username: postgres
     password: postgres
   jpa:
@@ -13,7 +13,9 @@ spring:
     change-log: classpath:db/changelog/master.xml
 
 server:
-  port: 9090
+  port: 8080
   servlet:
-    context-path: /api
+    context-path: "/api"
+  error:
+    include-stacktrace: never
 
