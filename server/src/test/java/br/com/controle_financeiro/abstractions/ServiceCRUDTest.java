@@ -16,9 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
 
 import br.com.controle_financeiro.exception.EntityNotFoundException;
-import br.com.controle_financeiro.usuario.entity.UsuarioEntity;
-import br.com.controle_financeiro.usuario.repository.UsuarioRepository;
-import br.com.controle_financeiro.usuario.service.UsuarioCRUDService;
+import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
+import br.com.controle_financeiro.modules.usuario.repository.UsuarioRepository;
+import br.com.controle_financeiro.modules.usuario.service.UsuarioCRUDService;
 import utils.Fixtures;
 
 @ExtendWith(MockitoExtension.class)

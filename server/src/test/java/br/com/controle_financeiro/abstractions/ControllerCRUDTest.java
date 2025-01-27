@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.com.controle_financeiro.usuario.entity.UsuarioEntity;
+import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
 import utils.Fixtures;
 import utils.TestUtils;
 import utils.config.ContainerEnviroment;

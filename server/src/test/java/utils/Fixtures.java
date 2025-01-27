@@ -2,7 +2,7 @@ package utils;
 
 import java.time.LocalDate;
 
-import br.com.controle_financeiro.usuario.entity.UsuarioEntity;
+import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
 
 public final class Fixtures {
     public static UsuarioEntity createUsuarioEntity() {

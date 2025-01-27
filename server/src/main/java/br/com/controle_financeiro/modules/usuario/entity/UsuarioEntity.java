@@ -1,4 +1,4 @@
-package br.com.controle_financeiro.usuario.entity;
+package br.com.controle_financeiro.modules.usuario.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
