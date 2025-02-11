@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -27,18 +30,24 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
     protected final ServiceCRUD service;
 
     @PostMapping
+    @ApiResponses({
+            @ApiResponse(responseCode = "201")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<T> create(@RequestBody(required = true) @Valid T entity) {
         T entityCreated = (T) service.create(entity);
         return ResponseEntity.status(HttpStatus.CREATED).body(entityCreated);
     }
 
     @GetMapping
+    @SecurityRequirement(name = "jwt_auth")
     public @ResponseBody Page<EntityCRUD> list(Pageable pageable) {
         Pageable finalPage = pageable == null ? DEFAULT_PAGEABLE : pageable;
         return service.list(finalPage);
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<EntityCRUD> findById(@PathVariable(required = true) UUID id) {
         try {
             return ResponseEntity.ok((EntityCRUD) service.findOne(id));
@@ -48,6 +57,7 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<EntityCRUD> update(@PathVariable(required = true) UUID id,
             @RequestBody(required = true) T object) {
         try {
@@ -58,6 +68,10 @@ public abstract class ControllerCRUD<T extends EntityCRUD> {
     }
 
     @DeleteMapping("/{id}")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204")
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Void> delete(@PathVariable(required = true) UUID id) {
         try {
             service.delete(id);

@@ -3,7 +3,6 @@ package br.com.controle_financeiro.abstractions;
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
@@ -31,9 +30,7 @@ public abstract class ServiceCRUD<R extends EntityCRUD> {
 
     public R create(@NotNull R request) {
         try {
-            R entity = entityClass.getDeclaredConstructor().newInstance();
-            BeanUtils.copyProperties(request, entity);
-            return (R) repository.save(entity);
+            return (R) repository.save(request);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

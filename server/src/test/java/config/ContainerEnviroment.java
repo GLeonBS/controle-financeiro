@@ -1,10 +1,10 @@
-package utils.config;
+package config;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import utils.config.container.PostgresTestContainer;
+import config.container.PostgresTestContainer;
 
 @Testcontainers
 public class ContainerEnviroment {

@@ -8,12 +8,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.controle_financeiro.exception.EntityNotFoundException;
 import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
@@ -25,10 +27,19 @@ import utils.Fixtures;
 class ServiceCRUDTest {
 
     @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
     private UsuarioRepository repository;
 
     @InjectMocks
     UsuarioCRUDService service;
+
+    @BeforeEach
+    void setUp() {
+        service.setRepository(repository);
+        service.setPasswordEncoder(passwordEncoder);
+    }
 
     @Test
     void deveChamarOMetodoSaveDoRepositorioQuandoOMetodoCreateForChamado() {

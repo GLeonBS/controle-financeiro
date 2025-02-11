@@ -32,4 +32,32 @@
 
         </createTable>
     </changeSet>
+
+
+    <changeSet id="add-coluna-senha-usuario" author="gabriel.souza">
+        <preConditions>
+            <not>
+                <columnExists tableName="usuario" columnName="senha"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="usuario">
+            <column name="senha" type="${textType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+    <changeSet id="add-coluna-roles-usuario" author="gabriel.souza">
+        <preConditions>
+            <not>
+                <columnExists tableName="usuario" columnName="roles"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="usuario">
+            <column name="roles" type="${arrayTextType}">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
