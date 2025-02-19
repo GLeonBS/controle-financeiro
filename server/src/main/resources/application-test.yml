@@ -12,3 +12,8 @@ spring:
 server:
   port: 88000
 
+security:
+  token:
+    secret:
+      usuario: "usuario_secret_test"
+

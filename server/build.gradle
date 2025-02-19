@@ -38,11 +38,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.liquibase:liquibase-core'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.8.3'
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation group: 'com.auth0', name: 'java-jwt', version: '4.5.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
+    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '6.4.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

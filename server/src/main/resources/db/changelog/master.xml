@@ -9,6 +9,7 @@
     <property name="textType" value="VARCHAR(255)" dbms="postgresql"/>
     <property name="id" value="uuid" dbms="postgresql"/>
     <property name="dateTime" value="TIMESTAMP" dbms="postgresql"/>
+    <property name="arrayTextType" value="TEXT[]" dbms="postgresql"/>
 
     <!--tables-->
     <include file="tables/usuario.xml" relativeToChangelogFile="true"/>
