@@ -8,7 +8,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 
 import br.com.controle_financeiro.abstractions.EntityCRUD;
-import br.com.controle_financeiro.enums.Role;
+import br.com.controle_financeiro.modules.usuario.enums.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

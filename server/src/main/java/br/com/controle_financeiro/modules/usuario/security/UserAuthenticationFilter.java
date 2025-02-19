@@ -9,10 +9,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.controle_financeiro.config.security.SecurityConfig;
 import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
 import br.com.controle_financeiro.modules.usuario.repository.UsuarioRepository;
 import br.com.controle_financeiro.modules.usuario.service.UsuarioTokenService;
-import br.com.controle_financeiro.springboot.security.SecurityConfig;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +31,8 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        if (checkIfEndpointIsNotPublic(request) && request.getRequestURI().startsWith("/api/usuario")) {
+        if (checkIfEndpointIsNotPublic(request) && (request.getRequestURI()
+                .startsWith("/api/usuario") || request.getRequestURI().startsWith("/usuario"))) {
             String token = recoveryToken(request);
             if (token != null) {
                 String subject = usuarioTokenService.getSubjectFromToken(token);
@@ -58,10 +59,7 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private boolean checkIfEndpointIsNotPublic(HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        return !Arrays.stream(SecurityConfig.PERMIT_ALL_LIST)
-                .map(uri -> "/api" + uri)
-                .toList()
-                .contains(requestURI);
+        String requestURI = request.getRequestURI().replace("/api", "");
+        return !Arrays.asList(SecurityConfig.PERMIT_ALL_LIST).contains(requestURI);
     }
 }

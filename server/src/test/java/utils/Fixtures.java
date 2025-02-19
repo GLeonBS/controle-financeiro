@@ -2,8 +2,8 @@ package utils;
 
 import java.time.LocalDate;
 
-import br.com.controle_financeiro.enums.Role;
 import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
+import br.com.controle_financeiro.modules.usuario.enums.Role;
 
 public final class Fixtures {
     public static UsuarioEntity createUsuarioEntity() {

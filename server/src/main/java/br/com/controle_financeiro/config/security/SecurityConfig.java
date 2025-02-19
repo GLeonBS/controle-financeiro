@@ -1,4 +1,4 @@
-package br.com.controle_financeiro.springboot.security;
+package br.com.controle_financeiro.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,6 @@ public class SecurityConfig {
             "/swagger-resources/**",
             "/actuator/**",
             "/usuario",
-            "/usuario/",
             "/usuario/login"
     };
 

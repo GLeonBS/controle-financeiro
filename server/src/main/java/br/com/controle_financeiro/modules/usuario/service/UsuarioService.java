@@ -2,16 +2,15 @@ package br.com.controle_financeiro.modules.usuario.service;
 
 import javax.naming.AuthenticationException;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.controle_financeiro.config.security.dto.RecoveryJwtTokenDto;
 import br.com.controle_financeiro.exception.EntityNotFoundException;
 import br.com.controle_financeiro.modules.usuario.dto.LoginUsuarioDto;
 import br.com.controle_financeiro.modules.usuario.entity.UsuarioEntity;
 import br.com.controle_financeiro.modules.usuario.repository.UsuarioRepository;
 import br.com.controle_financeiro.modules.usuario.security.UserDetailsImpl;
-import br.com.controle_financeiro.springboot.security.dto.RecoveryJwtTokenDto;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -19,7 +18,6 @@ import lombok.AllArgsConstructor;
 public class UsuarioService {
 
     private UsuarioRepository usuarioRepository;
-    private AuthenticationManager authenticationManager;
     private UsuarioTokenService jwtTokenService;
     private PasswordEncoder passwordEncoder;
 
@@ -36,7 +34,7 @@ public class UsuarioService {
 
         UserDetailsImpl userDetails = new UserDetailsImpl(usuario);
 
-        return new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
+        return jwtTokenService.generateToken(userDetails);
     }
 
 }
